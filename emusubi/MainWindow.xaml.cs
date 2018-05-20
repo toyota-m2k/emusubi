@@ -24,5 +24,11 @@ namespace emusubi
         {
             InitializeComponent();
         }
+
+        private void StartSearch(object sender, RoutedEventArgs e)
+        {
+            var stage = new Stage();
+            stage.Search();
+        }
     }
 }
