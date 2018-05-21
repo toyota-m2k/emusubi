@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace emusubi
 {
@@ -10,13 +11,17 @@ namespace emusubi
     {
         public int X { get; private set; }
         public int Y { get; private set; }
+        public bool Check { get; set; }
 
         private int mOcupied;
         public int Ocupied
         {
             get => mOcupied;
-            set => UpdateAndNotify("Ocupied", ref mOcupied, value);
+            set => UpdateAndNotify(new string[] {"Ocupied", "Color"}, ref mOcupied, value);
         }
+
+        private readonly Brush[] mCellColors = new Brush[] { new SolidColorBrush(Colors.White), new SolidColorBrush(Colors.Green), new SolidColorBrush(Colors.Blue), new SolidColorBrush(Colors.Yellow), new SolidColorBrush(Colors.Red), new SolidColorBrush(Colors.Purple), new SolidColorBrush(Colors.Pink) };
+        public Brush Color => mCellColors[Ocupied];
 
         public enum CellType
         {
@@ -49,17 +54,17 @@ namespace emusubi
 
         public void SetRoute(int id)
         {
-            if(mOcupied!=0||Type!=CellType.ROUTE)
+            if(Ocupied!=0||Type!=CellType.ROUTE)
             {
                 throw new InvalidOperationException("Cell is not empty.");
             }
-            mOcupied = id;
+            Ocupied = id;
         }
         public void ResetRoute()
         {
             if (Type == CellType.ROUTE)
             {
-                mOcupied = 0;
+                Ocupied = 0;
             }
         }
     }

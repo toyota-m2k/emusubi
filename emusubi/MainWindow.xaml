@@ -5,32 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:emusubi"
         mc:Ignorable="d"
+        Loaded="OnLoaded"
         Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="30"/>
-            <ColumnDefinition Width="30"/>
-            <ColumnDefinition Width="30"/>
-            <ColumnDefinition Width="30"/>
-            <ColumnDefinition Width="30"/>
-            <ColumnDefinition Width="30"/>
-            <ColumnDefinition Width="30"/>
-            <ColumnDefinition Width="30"/>
-            <ColumnDefinition Width="30"/>
-        </Grid.ColumnDefinitions>
+    <StackPanel Orientation="Vertical">
+        <StackPanel.Resources>
+            <local:BoolVisibilityConverter x:Key="BoolVisibilityConverter"/>
+            <local:NegBoolVisibilityConverter x:Key="NegBoolVisibilityConverter"/>
+        </StackPanel.Resources>
+        <Grid x:Name="StageGrid">
         
-        <Button Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="9" Content="Search" Click="StartSearch"/>
-    </Grid>
+        </Grid>
+        <Button Content="Search" Click="StartSearch" Visibility="{Binding Stage.IsRunning, Converter={StaticResource NegBoolVisibilityConverter}}"/>
+        <Button Content="Stop" Click="StopSearch" Visibility="{Binding Stage.IsRunning, Converter={StaticResource BoolVisibilityConverter}}"/>
+    </StackPanel>
 </Window>
